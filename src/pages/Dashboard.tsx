@@ -56,7 +56,7 @@ export default function Dashboard() {
 
   return (
     <div className="pb-6 animate-fade-in">
-      <PageHeader title="Dashboard" subtitle={format(new Date(), 'EEEE, MMMM d')} action={
+      <PageHeader title="Dashboar123d" subtitle={format(new Date(), 'EEEE, MMMM d')} action={
         <button onClick={() => setShowAgenda(true)} className="relative p-2 -mr-2">
           <CalendarDays className="w-5 h-5 text-primary" />
           {agendaTotal > 0 && (
