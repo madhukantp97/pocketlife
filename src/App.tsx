@@ -66,7 +66,7 @@ function AppContent() {
         <div className="flex-1 flex flex-col max-w-4xl mx-auto w-full">
           <header className="h-12 flex items-center border-b border-border sticky top-0 z-40 bg-background">
             <SidebarTrigger className="ml-3" />
-            <span className="ml-3 text-sm font-semibold text-foreground flex-1">Productivity Hub</span>
+            <span className="ml-3 text-sm font-semibold text-foreground flex-1">Productivity Hub1</span>
             <div className="flex items-center gap-1 mr-3">
               <GlobalSearch />
               <NotificationCenter />
