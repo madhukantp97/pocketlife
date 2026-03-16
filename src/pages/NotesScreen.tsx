@@ -144,6 +144,9 @@ export default function NotesScreen() {
             <div className="flex items-start justify-between">
               <h3 className="text-sm font-semibold text-card-foreground flex-1">{n.title}</h3>
               <div className="flex items-center gap-1">
+                {n.offline && (
+                  <span className="ml-2"><Badge variant="outline">Offline</Badge></span>
+                )}
                 <button onClick={e => { e.stopPropagation(); updateNote(n.id, { starred: !(n as any).starred } as any); }} className="p-1">
                   <Star className={`w-3.5 h-3.5 ${(n as any).starred ? 'text-warning fill-warning' : 'text-muted-foreground'}`} />
                 </button>

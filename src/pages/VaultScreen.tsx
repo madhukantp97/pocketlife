@@ -108,6 +108,9 @@ export default function VaultScreen() {
               <button onClick={() => deleteVaultEntry(entry.id)} className="text-[10px] text-destructive font-medium">Del</button>
             </div>
             <div className="flex items-center gap-2 mt-3">
+              {entry.offline && (
+                <span className="ml-2"><Badge variant="outline">Offline</Badge></span>
+              )}
               <div className="flex-1 bg-muted rounded-lg px-3 py-2 font-mono text-xs text-foreground">
                 {visiblePasswords.has(entry.id) ? decrypt(entry.encrypted_password, masterKey) : '••••••••••'}
               </div>
