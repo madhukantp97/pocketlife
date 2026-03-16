@@ -159,8 +159,20 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   notes: [],
   loadNotes: async () => {
-    const { data } = await supabase.from('pocketapp_notes').select('*').order('created_at', { ascending: false });
-    set({ notes: data || [] });
+    let notes = [];
+    if (!navigator.onLine) {
+      // Offline: load from offlineDB
+      const { getAllOffline } = await import('@/lib/offlineDB');
+      notes = await getAllOffline('notes');
+    } else {
+      // Online: load from Supabase
+      const { data } = await supabase.from('pocketapp_notes').select('*').order('created_at', { ascending: false });
+      notes = data || [];
+      // Save to offlineDB
+      const { saveOffline } = await import('@/lib/offlineDB');
+      for (const note of notes) await saveOffline('notes', note);
+    }
+    set({ notes });
   },
   addNote: async (note) => {
     const userId = await getUserId();
@@ -180,8 +192,17 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   todos: [],
   loadTodos: async () => {
-    const { data } = await supabase.from('pocketapp_todos').select('*').order('created_at', { ascending: false });
-    set({ todos: data || [] });
+    let todos = [];
+    if (!navigator.onLine) {
+      const { getAllOffline } = await import('@/lib/offlineDB');
+      todos = await getAllOffline('todos');
+    } else {
+      const { data } = await supabase.from('pocketapp_todos').select('*').order('created_at', { ascending: false });
+      todos = data || [];
+      const { saveOffline } = await import('@/lib/offlineDB');
+      for (const todo of todos) await saveOffline('todos', todo);
+    }
+    set({ todos });
   },
   addTodo: async (todo) => {
     const userId = await getUserId();
@@ -201,8 +222,17 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   reminders: [],
   loadReminders: async () => {
-    const { data } = await supabase.from('pocketapp_reminders').select('*').order('reminder_date', { ascending: true });
-    set({ reminders: data || [] });
+    let reminders = [];
+    if (!navigator.onLine) {
+      const { getAllOffline } = await import('@/lib/offlineDB');
+      reminders = await getAllOffline('reminders');
+    } else {
+      const { data } = await supabase.from('pocketapp_reminders').select('*').order('reminder_date', { ascending: true });
+      reminders = data || [];
+      const { saveOffline } = await import('@/lib/offlineDB');
+      for (const reminder of reminders) await saveOffline('reminders', reminder);
+    }
+    set({ reminders });
   },
   addReminder: async (reminder) => {
     const userId = await getUserId();
@@ -222,8 +252,17 @@ export const useAppStore = create<AppState>((set, get) => ({
 
   importantDates: [],
   loadImportantDates: async () => {
-    const { data } = await supabase.from('pocketapp_important_dates').select('*').order('date', { ascending: true });
-    set({ importantDates: data || [] });
+    let importantDates = [];
+    if (!navigator.onLine) {
+      const { getAllOffline } = await import('@/lib/offlineDB');
+      importantDates = await getAllOffline('importantDates');
+    } else {
+      const { data } = await supabase.from('pocketapp_important_dates').select('*').order('date', { ascending: true });
+      importantDates = data || [];
+      const { saveOffline } = await import('@/lib/offlineDB');
+      for (const date of importantDates) await saveOffline('importantDates', date);
+    }
+    set({ importantDates });
   },
   addImportantDate: async (date) => {
     const userId = await getUserId();

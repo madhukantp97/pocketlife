@@ -44,7 +44,7 @@ export default defineConfig(({ mode }) => ({
       },
       manifest: {
         name: "Productivity Hub",
-        short_name: "ProdHub",
+        short_name: "PocketApp",
         description: "Your all-in-one personal productivity app",
         theme_color: "#e8910c",
         background_color: "#f5f5f7",
