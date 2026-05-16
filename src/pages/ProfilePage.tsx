@@ -76,6 +76,8 @@ export default function ProfilePage() {
     toast.success('Avatar updated!');
   };
 
+
+
   return (
     <div className="p-4 space-y-6">
       <PageHeader title="Profile" subtitle="Manage your account details" />
